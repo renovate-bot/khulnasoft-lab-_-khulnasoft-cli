@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Optional - only used for print_colorized
+source khulnasoft-ci/utils
+
+exec_khulnasoftcli="kubectl exec khulnasoft-cli -- khulnasoft-cli --u admin --p foobar --url http://e2e-testing-khulnasoft-engine-api:8228/v1/"
+
+print_colorized INFO "Running khulnasoft CLI end-to-end tests."; echo
+
+eval "${exec_khulnasoftcli} --version"
+eval "${exec_khulnasoftcli} system wait --timeout 300 --interval 10 --feedsready '' --servicesready 'catalog,apiext,policy_engine,simplequeue,analyzer'"
+eval "${exec_khulnasoftcli} system status"
+
+python tests/e2e/aetest.py docker.io/alpine:latest "${exec_khulnasoftcli}"
+python tests/e2e/aefailtest.py docker.io/alpine:latest "${exec_khulnasoftcli}"
+
+print_colorized INFO "Finished running khulnasoft CLI end-to-end tests."; echo
