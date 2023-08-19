@@ -1,0 +1,15 @@
+FROM python:2-alpine
+
+LABEL "Maintainer"="dev@khulnasoft.com"
+LABEL "Source"="https://github.com/khulnasoft/khulnasoft-cli"
+
+# Default values that should be overridden in most cases on each container exec
+ENV KHULNASOFT_CLI_USER=""
+ENV KHULNASOFT_CLI_PASS=""
+ENV KHULNASOFT_CLI_URL=http://localhost:8228/v1/
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+RUN pip install khulnasoftcli
+
+CMD ["/bin/sh"]
