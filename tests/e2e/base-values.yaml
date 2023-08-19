@@ -1,0 +1,66 @@
+khulnasoftGlobal:
+  defaultAdminPassword: foobar
+
+postgresql:
+  # image: khulnasoft/engine-db-preload
+  # imageTag: latest
+  # postgresUser: postgres
+  # postgrsPassword: foobar123
+  # postgresDatabase: postgres
+  # probes:
+  #   liveness:
+  #     initialDelay: 500
+  resources:
+   limits:
+     cpu: 1
+     memory: 1G
+   requests:
+     cpu: 100m
+     memory: 100M
+
+khulnasoftAnalyzer:
+  resources:
+   limits:
+     cpu: 1
+     memory: 1G
+   requests:
+     cpu: 100m
+     memory: 100M
+
+khulnasoftApi:
+  service:
+    type: NodePort
+  resources:
+   limits:
+     cpu: 500m
+     memory: 500M
+   requests:
+     cpu: 100m
+     memory: 100M
+
+khulnasoftCatalog:
+  resources:
+   limits:
+     cpu: 1
+     memory: 1G
+   requests:
+     cpu: 100m
+     memory: 100M
+
+khulnasoftPolicyEngine:
+  resources:
+   limits:
+     cpu: 1
+     memory: 1G
+   requests:
+     cpu: 100m
+     memory: 100M
+
+khulnasoftSimpleQueue:
+  resources:
+   limits:
+     cpu: 500m
+     memory: 500M
+   requests:
+     cpu: 100m
+     memory: 100M
