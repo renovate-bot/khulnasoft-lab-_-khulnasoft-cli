@@ -1,5 +1,5 @@
 import pytest
-from anchorecli.cli import utils
+from khulnasoftcli.cli import utils
 import prettytable
 
 
@@ -9,12 +9,12 @@ class TestFormatErrorOutput:
 
     def test_fails_on_invalid_json(self):
         payload = Exception(
-            "could not access anchore service (user=None url=http://localhost:8228/v1)"
+            "could not access khulnasoft service (user=None url=http://localhost:8228/v1)"
         )
         result = utils.format_error_output(self.config, "policy", {}, payload)
         assert (
             result
-            == "Error: could not access anchore service (user=None url=http://localhost:8228/v1)\n"
+            == "Error: could not access khulnasoft service (user=None url=http://localhost:8228/v1)\n"
         )
 
     def test_empty_json_fallsback(self):
@@ -68,7 +68,7 @@ class TestFormatErrorOutputAccountDelete:
         )
         assert "Error: Invalid account state change requested" in result
         assert (
-            "NOTE: accounts must be disabled (anchore-cli account disable <account>)"
+            "NOTE: accounts must be disabled (khulnasoft-cli account disable <account>)"
             in result
         )
 

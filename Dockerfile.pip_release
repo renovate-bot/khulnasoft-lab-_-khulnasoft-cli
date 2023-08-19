@@ -1,7 +1,7 @@
 FROM python:2-alpine
 
 LABEL "Maintainer"="dev@khulnasoft.com"
-LABEL "Source"="https://github.com/khulnasoft/khulnasoft-cli"
+LABEL "Source"="https://github.com/khulnasoft-lab/khulnasoft-cli"
 
 # Default values that should be overridden in most cases on each container exec
 ENV KHULNASOFT_CLI_USER=""

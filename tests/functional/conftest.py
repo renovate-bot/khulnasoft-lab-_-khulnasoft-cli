@@ -35,7 +35,7 @@ def pytest_sessionstart(session):
     root_logger.addHandler(fh)
 
     # Setup the environment variable for the container
-    image = os.environ.get("PYTEST_CONTAINER", "anchore/inline-scan:latest")
+    image = os.environ.get("PYTEST_CONTAINER", "khulnasoft/inline-scan:latest")
     os.environ["PYTEST_CONTAINER"] = image
 
 
@@ -116,18 +116,18 @@ def pytest_report_header(config):
     except docker.errors.NotFound:
         logger.info("No running container was found, can't add info to report header")
         metadata = {"Config": {"Labels": {}}}
-        msg = ["Docker: Anchore inline_scan container not running yet"]
+        msg = ["Docker: KhulnaSoft inline_scan container not running yet"]
     except DockerException as e:
         logger.exception("Unable to connect to a docker socket")
-        msg = ["Anchore Version: Unable to connect to a docker socket"]
+        msg = ["KhulnaSoft Version: Unable to connect to a docker socket"]
         msg.append("Error: %s" % str(e))
         return msg
 
     labels = metadata["Config"]["Labels"]
     version = labels.get("version", "unknown")
-    commit = labels.get("anchore_commit", "unknown")
+    commit = labels.get("khulnasoft_commit", "unknown")
 
-    msg.extend(["Anchore Version: %s" % version, "Anchore Commit: %s" % commit])
+    msg.extend(["KhulnaSoft Version: %s" % version, "KhulnaSoft Commit: %s" % commit])
     return msg
 
 
@@ -153,7 +153,7 @@ def pytest_runtest_logreport(report):
 def inline_scan(client, request):
     # If the container is already running, this will return the running
     # container identified with `pytest_inline_scan`
-    image = os.environ.get("PYTEST_CONTAINER", "anchore/inline-scan:latest")
+    image = os.environ.get("PYTEST_CONTAINER", "khulnasoft/inline-scan:latest")
     os.environ["PYTEST_CONTAINER"] = image
     container = start_container(
         client,
@@ -212,7 +212,7 @@ def start_container(client, image, name, environment, ports, detach=True):
     start = time.time()
     while time.time() - start < 70:
         out, err, code = call(
-            ["anchore-cli", "--u", "admin", "--p", "foobar", "system", "status"],
+            ["khulnasoft-cli", "--u", "admin", "--p", "foobar", "system", "status"],
         )
         if code == 0:
             # This path needs to be hit when the container is ready to be
@@ -222,8 +222,8 @@ def start_container(client, image, name, environment, ports, detach=True):
         time.sleep(2)
 
     logger.error("Aborting tests: unable to verify a healthy status from container")
-    # If 70 seconds passed and anchore-cli wasn't able to determine an OK
-    # status from anchore-engine then failure needs to be raised with as much
+    # If 70 seconds passed and khulnasoft-cli wasn't able to determine an OK
+    # status from khulnasoft-engine then failure needs to be raised with as much
     # logging as possible. Can't assume the container is healthy even if the
     # exit code is 0
     print("[ERROR][setup] failed to setup container")
@@ -345,10 +345,10 @@ def call(command, **kw):
 
 
 def _call(command, **kw):
-    if command[0] != "anchore-cli":
-        command.insert(0, "anchore-cli")
+    if command[0] != "khulnasoft-cli":
+        command.insert(0, "khulnasoft-cli")
     return call(
-        command, env={"ANCHORE_CLI_USER": "admin", "ANCHORE_CLI_PASS": "foobar"}, **kw
+        command, env={"KHULNASOFT_CLI_USER": "admin", "KHULNASOFT_CLI_PASS": "foobar"}, **kw
     )
 
 

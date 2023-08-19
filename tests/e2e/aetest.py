@@ -16,7 +16,7 @@ except:
 try:
     precmd = str(sys.argv[2]) + " --json "
 except:
-    precmd = "anchore-cli --json --u admin --p foobar --url http://localhost:8228/v1 "
+    precmd = "khulnasoft-cli --json --u admin --p foobar --url http://localhost:8228/v1 "
 
 reg = user = pw = None
 try:

@@ -28,7 +28,7 @@ def policy(ctx_config, ctx):
     "input_policy",
     nargs=1,
     type=click.Path(exists=True),
-    metavar="<Anchore Policy Bundle File>",
+    metavar="<KhulnaSoft Policy Bundle File>",
 )
 def add(input_policy):
     ecode = 0
@@ -253,7 +253,7 @@ def describe(all=False, gate=None, trigger=None):
     khulnasoftcli.cli.utils.doexit(ecode)
 
 
-@policy.group(name="hub", short_help="Anchore Hub Operations")
+@policy.group(name="hub", short_help="KhulnaSoft Hub Operations")
 @click.pass_context
 def hub(ctx):
     if ctx.invoked_subcommand not in ["list", "get"]:

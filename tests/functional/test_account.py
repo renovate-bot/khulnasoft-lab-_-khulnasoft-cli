@@ -7,7 +7,7 @@ import pytest
     "sub_command", ["add", "del", "disable", "enable", "get", "list", "user", "whoami"]
 )
 def test_unauthorized(sub_command):
-    out, err, code = call(["anchore-cli", "account", sub_command])
+    out, err, code = call(["khulnasoft-cli", "account", sub_command])
     assert code == ExitCode(2)
     assert out == '"Unauthorized"\n'
 
@@ -18,7 +18,7 @@ class TesttList:
         assert code == ExitCode(0)
         assert "Username: admin" in out
         assert "AccountName: admin" in out
-        assert "AccountEmail: admin@myanchore" in out
+        assert "AccountEmail: admin@mykhulnasoft" in out
         assert "AccountType: admin" in out
 
     def test_is_authorized_json(self, admin_call):
@@ -28,7 +28,7 @@ class TesttList:
         loaded = json.loads(out)
         account = loaded["account"]
         user = loaded["user"]
-        assert account["email"] == "admin@myanchore"
+        assert account["email"] == "admin@mykhulnasoft"
         assert account["name"] == "admin"
         assert account["type"] == "admin"
         assert account["state"] == "enabled"
@@ -45,14 +45,14 @@ class TestWhoami:
         assert code == 0
         assert out[0] == ["Name", "Email", "Type", "State", "Created"]
         # remove the TZ
-        assert out[1][:-1] == ["admin", "admin@myanchore", "admin", "enabled"]
+        assert out[1][:-1] == ["admin", "admin@mykhulnasoft", "admin", "enabled"]
 
     def test_is_authorized_json(self, admin_call):
         out, err, code = admin_call(["--json", "account", "list"])
         assert code == ExitCode(0)
         # only one account
         loaded = json.loads(out)[0]
-        assert loaded["email"] == "admin@myanchore"
+        assert loaded["email"] == "admin@mykhulnasoft"
         assert loaded["name"] == "admin"
         assert loaded["type"] == "admin"
         assert loaded["state"] == "enabled"

@@ -9,5 +9,5 @@ def add_image(session_admin_call):
 
     TODO: Pin this to a specific digest
     """
-    session_admin_call(["anchore-cli", "image", "add", "alfredodeza/vulnerable"])
-    session_admin_call(["anchore-cli", "image", "wait", "alfredodeza/vulnerable"])
+    session_admin_call(["khulnasoft-cli", "image", "add", "alfredodeza/vulnerable"])
+    session_admin_call(["khulnasoft-cli", "image", "wait", "alfredodeza/vulnerable"])

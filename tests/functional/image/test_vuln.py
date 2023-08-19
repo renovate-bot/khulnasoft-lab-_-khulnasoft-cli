@@ -2,12 +2,12 @@ import os
 import pytest
 
 skip_versions = [
-    "anchore/inline-scan:v0.6.0",
-    "anchore/inline-scan:v0.5.0",
-    "anchore/inline-scan:v0.5.1",
+    "khulnasoft/inline-scan:v0.6.0",
+    "khulnasoft/inline-scan:v0.5.0",
+    "khulnasoft/inline-scan:v0.5.1",
 ]
 
-skip_reason = "Github Advisories not available in this version of Anchore Engine"
+skip_reason = "Github Advisories not available in this version of KhulnaSoft Engine"
 
 
 class TestNonOsVulnerabilities:
@@ -27,7 +27,7 @@ class TestNonOsVulnerabilities:
         Fetch the output of non-os vulnerabilities in user-friendly format,
         split on newlines. This fixture is used once for the whole class
         """
-        # XXX This needs to point to an anchore image
+        # XXX This needs to point to an khulnasoft image
         out, err, code = class_admin_call(
             ["image", "vuln", "alfredodeza/vulnerable", "non-os"]
         )

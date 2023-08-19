@@ -28,7 +28,7 @@ def setup_config(cli_opts):
         "user": None,
         "pass": None,
         "url": "http://localhost:8228/v1",
-        "hub-url": "https://hub.khulnasoft.io/",
+        "hub-url": "https://hub.khulnasoft.com/",
         "api-version": None,
         "ssl_verify": True,
         "jsonmode": False,

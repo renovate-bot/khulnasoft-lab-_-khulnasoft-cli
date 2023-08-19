@@ -31,4 +31,4 @@ def no_fds_closing(monkeypatch):
     * https://github.com/pallets/click/issues/824
     * https://github.com/pytest-dev/pytest/issues/3344
     """
-    monkeypatch.setenv("ANCHORE_CLI_NO_FDS_CLEANUP", "1")
+    monkeypatch.setenv("KHULNASOFT_CLI_NO_FDS_CLEANUP", "1")

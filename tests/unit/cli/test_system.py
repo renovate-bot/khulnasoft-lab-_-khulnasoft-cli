@@ -1,8 +1,8 @@
 import pytest
-from anchorecli.cli import system
+from khulnasoftcli.cli import system
 from click.testing import CliRunner
-import anchorecli.cli.utils
-import anchorecli.clients.apiexternal
+import khulnasoftcli.cli.utils
+import khulnasoftcli.clients.apiexternal
 
 # Patches all attributes needed for just testing the feeds wait
 @pytest.fixture
@@ -10,9 +10,9 @@ def patch_for_feeds_wait(monkeypatch):
     monkeypatch.setattr(
         system, "config", {"url": "http://localhost:8228", "jsonmode": False}
     )
-    monkeypatch.setattr(anchorecli.cli.utils, "check_access", lambda x: {})
+    monkeypatch.setattr(khulnasoftcli.cli.utils, "check_access", lambda x: {})
     monkeypatch.setattr(
-        anchorecli.clients.apiexternal,
+        khulnasoftcli.clients.apiexternal,
         "system_status",
         lambda x: {"success": True, "httpcode": 200},
     )
@@ -84,7 +84,7 @@ def test_wait_for_group(
     monkeypatch, make_feed_response, test_context, patch_for_feeds_wait
 ):
     monkeypatch.setattr(
-        anchorecli.clients.apiexternal,
+        khulnasoftcli.clients.apiexternal,
         "system_feeds_list",
         lambda x: make_feed_response(
             additional_vuln_group_records=test_context["additional_vuln_group_records"]
@@ -104,7 +104,7 @@ def test_wait_for_group(
 
 def test_wait_for_disabled_feed(monkeypatch, make_feed_response, patch_for_feeds_wait):
     monkeypatch.setattr(
-        anchorecli.clients.apiexternal,
+        khulnasoftcli.clients.apiexternal,
         "system_feeds_list",
         lambda x: make_feed_response(vuln_enabled=False),
     )
@@ -116,7 +116,7 @@ def test_wait_for_disabled_feed(monkeypatch, make_feed_response, patch_for_feeds
 
 def test_wait_for_enabled_feed(monkeypatch, make_feed_response, patch_for_feeds_wait):
     monkeypatch.setattr(
-        anchorecli.clients.apiexternal,
+        khulnasoftcli.clients.apiexternal,
         "system_feeds_list",
         lambda x: make_feed_response(),
     )
