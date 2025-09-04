@@ -1,6 +1,6 @@
 ARG BASE_REGISTRY=registry.access.redhat.com
 ARG BASE_IMAGE=ubi8/ubi
-ARG BASE_TAG=8.5
+ARG BASE_TAG=8.10
 
 #### Start first stage
 #### KhulnaSoft wheels, binary dependencies, etc. are staged to /build_output for second stage
